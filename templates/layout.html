@@ -1,23 +1,48 @@
-{% load static %}
+<!doctype html>
+{% load static from staticfiles %}
 {% load course_extras %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static "css/layout.css" %}">
-    {% block static %}{% endblock %}
-    <title>{% block title %}{% endblock %}</title>
-</head>
-<body>
-<div class="site-container">
-    {% nav_course_list %}
-    <nav>
-        <a href="{% url "home" %}">Home</a>
-        <a href="{% url "courses:list" %}">Courses</a>
-    </nav>
-    <p>Don't miss our latest course, {% newest_course %}!</p>
-    {% block content %}{%  endblock %}
-</div>
-</body>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+        {% block css %}{% endblock %}
+        <script src="{% static 'js/vendor/modernizr.js' %}"></script>
+        <meta class="foundation-mq">
+    </head>
+    <body>
+        <nav class="top-bar" role="navigation">
+            <section class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu role="menubar">
+                    <li class="menu-text">The Learning Site</li>
+                    <li class="has-submenu">
+                        <a href="#">Courses</a>
+                        <ul class="submenu menu vertical" data-submenu role="menu">
+                            {% nav_course_list %}
+                            <li><a href="{% url 'courses:list' %}">See all &rarr;</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </nav>
+        {% block content %}{% endblock %}
+        <footer class="row columns">
+            <hr/>
+            <div class="small-6 columns">
+                <p>&copy; The Learning Site</p>
+            </div>
+            <div class="small-6 columns">
+                <ul class="inline-list no-bullet float-right">
+                    <li><a href="{% url 'courses:list' %}">Courses</a></li>
+                </ul>
+            </div>
+        </footer>
+        <script src="{% static 'js/vendor/jquery-2.1.4.min.js' %}"></script>
+        <script src="{% static 'js/vendor/what-input.min.js' %}"></script>
+        <script src="{% static 'js/foundation.min.js' %}"></script>
+        {% block javascript %}{% endblock %}
+        <script>$(document).foundation();</script>
+    </body>
 </html>
