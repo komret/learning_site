@@ -20,9 +20,10 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('courses/', include('courses.urls', namespace="courses")),
+    path('courses/', include('courses.urls', namespace='courses')),
     path('admin/', admin.site.urls),
-    path('', views.hello_world, name="home"),
+    path('', views.hello_world, name='home'),
+    path('suggest', views.suggestion, name='suggestion')
 ]
 
 urlpatterns += staticfiles_urlpatterns()
