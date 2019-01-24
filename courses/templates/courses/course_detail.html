@@ -22,5 +22,8 @@
                 {% endfor %}
             </dl>
         </article>
+        {% if user.is_authenticated %}
+            <a href="{% url "courses:create_quiz" course_pk=course.id %}" class="button">New quiz</a>
+        {% endif %}
     </div>
 {% endblock %}

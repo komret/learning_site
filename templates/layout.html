@@ -18,7 +18,7 @@
         <ul class="dropdown menu" data-dropdown-menu role="menubar">
             <li class="menu-text">The Learning Site</li>
             <li class="has-submenu">
-                <a href="#">Courses</a>
+                <a href="{% url "courses:list" %}">Courses</a>
                 <ul class="submenu menu vertical" data-submenu role="menu">
                     {% nav_course_list %}
                     <li><a href="{% url 'courses:list' %}">See all &rarr;</a></li>
