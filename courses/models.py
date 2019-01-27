@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -6,6 +7,8 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(default="", max_length=255)
 
     def __str__(self):
         return self.title
@@ -43,7 +46,7 @@ class Quiz(Step):
 
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete="CASCADE")
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     prompt = models.TextField()
 
@@ -66,7 +69,7 @@ class TrueFalseQuestion(Question):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete="CASCADE")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     text = models.CharField(max_length=255)
     correct = models.BooleanField(default=False)

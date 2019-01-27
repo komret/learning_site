@@ -1,6 +1,6 @@
 {% extends "courses/layout.html" %}
 
-{% block title %}New answer | {{ question.prompt }} | {{ question.quiz.course.title }} {{ block.super }}
+{% block title %}{{ question|default:"Add answers" }} | {{ question.quiz.course.title }} {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -14,10 +14,14 @@
 {% block content %}
     <div class="row columns">
         {{ block.super }}
-        <h1>Add answer</h1>
+    </div>
+    <div class="row columns">
+        <h1>Answers</h1>
         <form method="POST" action="">
             {% csrf_token %}
-            {{ form.as_p }}
+            <section>
+                {{ formset }}
+            </section>
             <input type="submit" class="button" value="Save">
         </form>
     </div>

@@ -17,5 +17,4 @@ urlpatterns = [
         name="create_question"
     ),
     path("<int:quiz_pk>/edit_question/<int:question_pk>", views.edit_question, name="edit_question"),
-    path("<int:question_pk>/create_answer/", views.create_answer, name="create_answer")
 ]
