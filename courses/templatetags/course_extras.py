@@ -1,22 +1,20 @@
+import markdown2
 from django import template
 from django.utils.safestring import mark_safe
 
-import markdown2
-
 from courses.models import Course
-
 
 register = template.Library()
 
 
 @register.simple_tag
 def newest_course():
-    return Course.objects.latest("created_at")
+    return Course.objects.filter(published=True).latest("created_at")
 
 
 @register.inclusion_tag("courses/course_nav.html")
 def nav_course_list():
-    return {"courses": Course.objects.all()}
+    return {"courses": Course.objects.filter(published=True).order_by("-created_at").values("id", "title")[:5]}
 
 
 @register.filter("time_estimate")

@@ -17,4 +17,6 @@ urlpatterns = [
         name="create_question"
     ),
     path("<int:quiz_pk>/edit_question/<int:question_pk>", views.edit_question, name="edit_question"),
+    path("by/<str:teacher>/", views.courses_by_teacher, name="by_teacher"),
+    path("search/", views.search, name="search")
 ]
