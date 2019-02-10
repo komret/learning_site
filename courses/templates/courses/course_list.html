@@ -6,13 +6,17 @@
     <div class="row columns">
         {{ block.super }}
     </div>
+    <p>Total number of quizzes and steps: {{ total.total }}</p>
     <div class="row">
-        {%  for course in courses %}
+        {% for course in courses %}
             <div class="small-6 columns">
                 <div class="callout">
                     <h5><a href="{% url 'courses:detail' pk=course.pk %}">{{ course.title }}</a></h5>
                     <div class="card-copy">
                         {{ course.description }}
+                        {% if course.total_steps %}
+                            <p><strong>Steps:</strong>{{ course.total_steps }}</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -22,5 +26,5 @@
                 <div class="row">
             {% endif %}
         {% endfor %}
-    </div>
+        </div>
 {% endblock %}
