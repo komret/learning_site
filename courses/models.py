@@ -2,6 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
+STATUS_CHOICES = (
+    ('i', 'In Progress'),
+    ('r', 'In Review'),
+    ('p', 'Published')
+)
 
 class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -10,9 +15,15 @@ class Course(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(default="", max_length=255)
     published = models.BooleanField(default=False)
+    is_live = models.BooleanField(default=False)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='i')
 
     def __str__(self):
         return self.title
+
+    def time_to_complete(self):
+        from courses.templatetags.course_extras import time_estimate
+        return f'{time_estimate(len(self.description.split()))} min'
 
 
 class Step(models.Model):
